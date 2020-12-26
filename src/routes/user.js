@@ -1,20 +1,14 @@
 "use strict";
 
 import { Router } from "express";
-import {
-  showUsers,
-  showUserById,
-  storeUser,
-  updateUser,
-  destroyUser,
-} from "../controllers/user";
+import { UserController } from "../controllers";
 
 const apiUser = Router();
 
-apiUser.get("/", showUsers);
-apiUser.post("/", storeUser);
-apiUser.put("/:userId", updateUser);
-apiUser.get("/:userId", showUserById);
-apiUser.delete("/:userId", destroyUser);
+apiUser.get("/", UserController.showUsers);
+apiUser.post("/", UserController.storeUser);
+apiUser.put("/:userId", UserController.updateUser);
+apiUser.get("/:userId", UserController.showUserById);
+apiUser.delete("/:userId", UserController.destroyUser);
 
 export default apiUser;

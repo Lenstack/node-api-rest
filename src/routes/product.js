@@ -1,20 +1,14 @@
 "use strict";
 
 import { Router } from "express";
-import {
-  showProducts,
-  showProductById,
-  storeProduct,
-  updateProduct,
-  destroyProduct,
-} from "../controllers/product";
+import { ProductController } from "../controllers";
 
 const apiProduct = Router();
 
-apiProduct.get("/", showProducts);
-apiProduct.get("/:productId", showProductById);
-apiProduct.post("/", storeProduct);
-apiProduct.put("/:productId", updateProduct);
-apiProduct.delete("/:productId", destroyProduct);
+apiProduct.get("/", ProductController.showProducts);
+apiProduct.get("/:productId", ProductController.showProductById);
+apiProduct.post("/", ProductController.storeProduct);
+apiProduct.put("/:productId", ProductController.updateProduct);
+apiProduct.delete("/:productId", ProductController.destroyProduct);
 
 export default apiProduct;
