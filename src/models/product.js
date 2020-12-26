@@ -1,8 +1,6 @@
 "use strict";
 
-import mongoose from "mongoose";
-
-const Schema = mongoose.Schema;
+import { Schema } from "mongoose";
 
 const ProductSchema = Schema({
   name: String,
