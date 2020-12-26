@@ -8,7 +8,7 @@
     "start": "node build/index.js",
     "build": "babel src --out-dir build"
   },
-  "author": "",
+  "author": "Leonardo Ospina",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.12.10",

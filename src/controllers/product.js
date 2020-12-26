@@ -34,7 +34,7 @@ const storeProduct = async (req, res, next) => {
   await product
     .save()
     .then((prod) => {
-      res.status(200).send(prod);
+      res.status(201).send(prod);
     })
     .catch((err) => {
       res.status(404).send({ message: err });
@@ -45,7 +45,7 @@ const updateProduct = async (req, res, next) => {
   const { productId } = req.params;
   const product = req.body;
 
-  await Product.findByIdAndUpdate(productId, product)
+  await Product.findByIdAndUpdate(productId, product, { new: true })
     .then((prod) => {
       res.status(200).send(prod);
     })
@@ -67,7 +67,7 @@ const destroyProduct = async (req, res, next) => {
     });
 };
 
-export {
+export default {
   showProducts,
   showProductById,
   storeProduct,

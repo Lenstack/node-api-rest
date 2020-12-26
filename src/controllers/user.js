@@ -38,7 +38,7 @@ const storeUser = async (req, res, next) => {
   await newUser
     .save()
     .then((user) => {
-      res.status(200).send(user);
+      res.status(201).send(user);
     })
     .catch((err) => {
       res.status(404).send({ message: err });
@@ -49,7 +49,7 @@ const updateUser = async (req, res, next) => {
   const { userId } = req.params;
   const updateUser = req.body;
 
-  await User.findByIdAndUpdate(userId, updateUser)
+  await User.findByIdAndUpdate(userId, updateUser, { new: true })
     .then((user) => {
       res.status(200).send(user);
     })
@@ -71,7 +71,7 @@ const destroyUser = async (req, res, next) => {
     });
 };
 
-export {
+export default {
   signInUser,
   signUpUser,
   showUsers,

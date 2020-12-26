@@ -1,11 +1,17 @@
 "use strict";
 
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
-const UserSchema = Schema({
-  name: String,
-  email: { type: String, unique: true },
-  password: { type: String },
-});
+const UserSchema = new Schema(
+  {
+    name: String,
+    email: { type: String, unique: true },
+    password: { type: String },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+  }
+);
 
-export default mongoose.model("User", UserSchema);
+export default model("User", UserSchema);
