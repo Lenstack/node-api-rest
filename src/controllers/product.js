@@ -1,6 +1,6 @@
 "use strict";
 
-const Product = require("../models/product");
+import { Product } from "../models";
 
 const showProducts = async (req, res, next) => {
   await Product.find()
@@ -67,7 +67,7 @@ const destroyProduct = async (req, res, next) => {
     });
 };
 
-module.exports = {
+export {
   showProducts,
   showProductById,
   storeProduct,

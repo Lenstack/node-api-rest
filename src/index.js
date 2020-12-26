@@ -1,8 +1,8 @@
 "use strict";
 
-const mongoose = require("mongoose");
-const app = require("./app");
-const config = require("./config");
+import mongoose from "mongoose";
+import app from "./app";
+import config from "./config";
 
 try {
   app.listen(config.port, () => {

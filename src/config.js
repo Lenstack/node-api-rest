@@ -1,8 +1,8 @@
 "use strict";
 
-const config = require("dotenv/config");
+import config from "dotenv/config";
 
-module.exports = {
+export default {
   port: process.env.PORT || 3001,
   db: process.env.MONGODB,
   saltRounds: process.env.SALT_ROUDS,

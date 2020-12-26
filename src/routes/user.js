@@ -1,20 +1,20 @@
 "use strict";
 
-const express = require("express");
-const {
+import { Router } from "express";
+import {
   showUsers,
   showUserById,
   storeUser,
   updateUser,
   destroyUser,
-} = require("../controllers/user");
+} from "../controllers/user";
 
-const apiUser = express.Router();
+const apiUser = Router();
 
-apiUser.get("/user", showUsers);
-apiUser.post("/user", storeUser);
-apiUser.put("/user/:userId", updateUser);
-apiUser.get("/user/:userId", showUserById);
-apiUser.delete("/user/:userId", destroyUser);
+apiUser.get("/", showUsers);
+apiUser.post("/", storeUser);
+apiUser.put("/:userId", updateUser);
+apiUser.get("/:userId", showUserById);
+apiUser.delete("/:userId", destroyUser);
 
-module.exports = apiUser;
+export default apiUser;

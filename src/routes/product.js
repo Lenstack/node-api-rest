@@ -1,20 +1,20 @@
 "use strict";
 
-const express = require("express");
-const {
+import { Router } from "express";
+import {
   showProducts,
   showProductById,
   storeProduct,
   updateProduct,
   destroyProduct,
-} = require("../controllers/product");
+} from "../controllers/product";
 
-const apiProduct = express.Router();
+const apiProduct = Router();
 
-apiProduct.get("/product", showProducts);
-apiProduct.post("/product", storeProduct);
-apiProduct.put("/product/:productId", updateProduct);
-apiProduct.get("/product/:productId", showProductById);
-apiProduct.delete("/product/:productId", destroyProduct);
+apiProduct.get("/", showProducts);
+apiProduct.get("/:productId", showProductById);
+apiProduct.post("/", storeProduct);
+apiProduct.put("/:productId", updateProduct);
+apiProduct.delete("/:productId", destroyProduct);
 
-module.exports = apiProduct;
+export default apiProduct;

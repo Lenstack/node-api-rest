@@ -1,6 +1,6 @@
 "use strict";
 
-const User = require("../models/user");
+import { User } from "../models";
 
 const signInUser = async (req, res, next) => {};
 
@@ -71,7 +71,7 @@ const destroyUser = async (req, res, next) => {
     });
 };
 
-module.exports = {
+export {
   signInUser,
   signUpUser,
   showUsers,
