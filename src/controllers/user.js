@@ -2,10 +2,6 @@
 
 import { User } from "../models";
 
-const signInUser = async (req, res, next) => {};
-
-const signUpUser = async (req, res, next) => {};
-
 const showUsers = async (req, res, next) => {
   await User.find()
     .then((user) => {
@@ -61,10 +57,11 @@ const updateUser = async (req, res, next) => {
 const destroyUser = async (req, res, next) => {
   const { userId } = req.params;
 
-  await User.findById(userId)
+  await User.findByIdAndRemove(userId)
     .then((user) => {
-      user.remove();
-      res.status(200).send(user);
+      !user
+        ? res.status(404).send({ message: "User not found" })
+        : res.status(200).send(user);
     })
     .catch((err) => {
       res.status(404).send({ message: "User not found", error: err });
@@ -72,8 +69,6 @@ const destroyUser = async (req, res, next) => {
 };
 
 export default {
-  signInUser,
-  signUpUser,
   showUsers,
   showUserById,
   storeUser,

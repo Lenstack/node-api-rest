@@ -57,10 +57,11 @@ const updateProduct = async (req, res, next) => {
 const destroyProduct = async (req, res, next) => {
   const { productId } = req.params;
 
-  await Product.findById(productId)
+  await Product.findByIdAndRemove(productId)
     .then((prod) => {
-      prod.remove();
-      res.status(200).send(prod);
+      !prod
+        ? res.status(404).send({ message: "Product not found" })
+        : res.status(200).send(prod);
     })
     .catch((err) => {
       res.status(404).send({ message: "product not found", error: err });
