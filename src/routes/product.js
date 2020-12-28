@@ -2,13 +2,14 @@
 
 import { Router } from "express";
 import { ProductController } from "../controllers";
+import { VerifyToken } from "../middlewares";
 
 const apiProduct = Router();
 
-apiProduct.get("/", ProductController.showProducts);
-apiProduct.get("/:productId", ProductController.showProductById);
-apiProduct.post("/", ProductController.storeProduct);
-apiProduct.put("/:productId", ProductController.updateProduct);
-apiProduct.delete("/:productId", ProductController.destroyProduct);
+apiProduct.get("/", VerifyToken, ProductController.showProducts);
+apiProduct.get("/:productId", VerifyToken, ProductController.showProductById);
+apiProduct.post("/", VerifyToken, ProductController.storeProduct);
+apiProduct.put("/:productId", VerifyToken, ProductController.updateProduct);
+apiProduct.delete("/:productId", VerifyToken, ProductController.destroyProduct);
 
 export default apiProduct;

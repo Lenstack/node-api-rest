@@ -1,63 +1,41 @@
 "use strict";
 
 import { User } from "../models";
-import jwt from "jsonwebtoken";
+import { Bcrypt } from "../helpers";
 import config from "../config";
+import Jwt from "jsonwebtoken";
 
-const signInUser = async (req, res, next) => {
-  const { email, password } = req.body;
+const signInUser = async (req, res) => {};
 
-  const isUser = await User.findOne({ email: email });
-
-  if (isUser) {
-    const isVerifiedPassword = await User.comparePassword(
-      password,
-      isUser.password
-    );
-
-    const token = jwt.sign({ id: isUser._id }, config.jwtSecret, {
-      expiresIn: 86400,
-    });
-
-    return isVerifiedPassword
-      ? res.status(200).send({ Authorization: token })
-      : res
-          .status(404)
-          .send({ Authorization: "User or Password is Incorrect" });
-  }
-
-  return res.status(404).send({ message: "User or Password is Incorrect" });
-};
-
-const signUpUser = async (req, res, next) => {
+const signUpUser = async (req, res) => {
   const { name, email, password, roles } = req.body;
-
-  const isUser = await User.findOne({ email: email });
+  const isUser = await User.findOne({ email });
 
   if (!isUser) {
+    const encryptedPassword = await Bcrypt.encryptPassword(password);
+
     const newUser = new User({
-      name: name,
-      email: email,
-      password: await User.encodePassword(password),
-      roles: roles,
+      name,
+      email,
+      password: encryptedPassword,
+      roles,
     });
-
-    await newUser
-      .save()
-      .then((user) => {
-        const token = jwt.sign({ id: user._id }, config.jwtSecret, {
-          expiresIn: 86400,
-        });
-        res.status(200).send({ Authorization: token });
-      })
-      .catch((err) => {
-        res.status(404).send({ Message: err });
-      });
+    console.log(config);
+    newUser.save().then((user) => {
+      Jwt.sign(
+        { user },
+        config.jwtSecret,
+        { expiresIn: config.expiresIn },
+        (err, token) => {
+          return err
+            ? res.status(404).send({ err })
+            : res.status(200).send({ token });
+        }
+      );
+    });
+  } else {
+    return res.status(404).json({ message: "This user already exist." });
   }
-
-  return res
-    .status(404)
-    .send({ Message: "This email as been already Register" });
 };
 
 export default {
