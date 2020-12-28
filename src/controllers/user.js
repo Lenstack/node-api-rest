@@ -28,19 +28,6 @@ const showUserById = async (req, res, next) => {
     });
 };
 
-const storeUser = async (req, res, next) => {
-  const newUser = new User(req.body);
-
-  await newUser
-    .save()
-    .then((user) => {
-      res.status(201).send(user);
-    })
-    .catch((err) => {
-      res.status(404).send({ message: err });
-    });
-};
-
 const updateUser = async (req, res, next) => {
   const { userId } = req.params;
   const updateUser = req.body;
@@ -71,7 +58,6 @@ const destroyUser = async (req, res, next) => {
 export default {
   showUsers,
   showUserById,
-  storeUser,
   updateUser,
   destroyUser,
 };

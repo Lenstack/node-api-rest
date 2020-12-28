@@ -5,7 +5,32 @@ import { Bcrypt } from "../helpers";
 import config from "../config";
 import Jwt from "jsonwebtoken";
 
-const signInUser = async (req, res) => {};
+const signInUser = async (req, res) => {
+  const { email, password } = req.body;
+  const isUser = await User.findOne({ email });
+
+  if (isUser) {
+    const comparedPassword = await Bcrypt.comparePassword(
+      password,
+      isUser.password
+    );
+
+    comparedPassword
+      ? Jwt.sign(
+          { isUser },
+          config.jwtSecret,
+          { expiresIn: config.expiresIn },
+          (err, token) => {
+            return err
+              ? res.status(404).send({ err })
+              : res.status(200).send({ token });
+          }
+        )
+      : res.status(404).json({ message: "Incorrect user or password." });
+  } else {
+    return res.status(404).json({ message: "Incorrect user or password." });
+  }
+};
 
 const signUpUser = async (req, res) => {
   const { name, email, password, roles } = req.body;
@@ -20,7 +45,7 @@ const signUpUser = async (req, res) => {
       password: encryptedPassword,
       roles,
     });
-    console.log(config);
+
     newUser.save().then((user) => {
       Jwt.sign(
         { user },
