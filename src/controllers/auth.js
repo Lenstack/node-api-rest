@@ -17,7 +17,7 @@ const signInUser = async (req, res) => {
 
     comparedPassword
       ? Jwt.sign(
-          { isUser },
+          { user: isUser },
           config.jwtSecret,
           { expiresIn: config.expiresIn },
           (err, token) => {
