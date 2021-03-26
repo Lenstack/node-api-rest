@@ -5,11 +5,11 @@ import { Schema, model } from "mongoose";
 const ProductSchema = new Schema(
   {
     name: String,
-    picture: String,
+    imageURL: String,
     price: { type: Number, default: 0 },
     category: {
       type: String,
-      enum: ["computers", "phones", "accesories", "lacteos"],
+      enum: ["carnes"],
     },
     description: String,
   },
