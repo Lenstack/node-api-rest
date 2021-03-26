@@ -7,7 +7,7 @@
     "start": "nodemon --exec babel-node src/index.js",
     "build": "babel src --out-dir build",
     "deploy": "npm run build && cd build && babel-node index.js",
-    "heroku-postbuild": "ng deploy --prod"
+    "heroku-postbuild": "npm run deploy --prod"
   },
   "author": "Leonardo Ospina",
   "license": "ISC",
