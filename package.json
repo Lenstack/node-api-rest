@@ -7,7 +7,9 @@
     "dev": "nodemon src/index.js --exec babel-node",
     "start": "node build/index.js",
     "build": "babel src --out-dir build",
-    "heroku-postbuild": "npm run build"
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./src -s",
+    "heroku-postbuild": "npm run clean && npm run build-babel"
   },
   "author": "Leonardo Ospina",
   "license": "ISC",
