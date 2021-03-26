@@ -7,8 +7,10 @@ Produccion: https://salesapirest.herokuapp.com/
 
 Routes:
 
+**
 /api/auth/signup
 /api/auth/signin
+**
 
 /api/products   GET, POST, PUT, DELETE
 /api/users      GET, PUT, DELETE
