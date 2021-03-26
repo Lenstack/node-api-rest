@@ -2,12 +2,13 @@
 
 import { Router } from "express";
 import { SaleController } from "../controllers";
+import { VerifyToken } from "../middlewares";
 
 const apiSale = Router();
 
-apiSale.get("/", SaleController.showSales);
-apiSale.post("/", SaleController.storeSale);
-apiSale.get("/:saleId", SaleController.showSaleById);
-apiSale.delete("/:saleId", SaleController.destroySale);
+apiSale.get("/", VerifyToken, SaleController.showSales);
+apiSale.post("/", VerifyToken, SaleController.storeSale);
+apiSale.get("/:saleId", VerifyToken, SaleController.showSaleById);
+apiSale.delete("/:saleId", VerifyToken, SaleController.destroySale);
 
 export default apiSale;
