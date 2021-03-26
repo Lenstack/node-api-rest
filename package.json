@@ -4,12 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js --exec babel-node",
-    "start": "node build/index.js",
-    "build": "babel src --out-dir build",
-    "clean": "rm -rf build && mkdir build",
-    "build-babel": "babel -d ./build ./src -s",
-    "heroku-postbuild": "npm run clean && npm run build-babel"
+    "start": "nodemon --exec babel-node src/index.js",
+    "build": "babel src --out-dir build"
   },
   "author": "Leonardo Ospina",
   "license": "ISC",
